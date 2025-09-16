@@ -1,6 +1,6 @@
 extension SDL_Event {
   public var eventType: SDL_EventType {
-    SDL_EventType(Int32(type))
+      SDL_EventType(UInt32(Int32(type)))
   }
 }
 
