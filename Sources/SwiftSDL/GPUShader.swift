@@ -73,9 +73,10 @@ public func SDL_Load(
   )
   
   let pointer = try gpuDevice(SDL_CreateGPUShader, .some(&shaderInfo))
-  return SDLObject(pointer, tag: .custom("\(file + fileExt)"), destroy: { [weak gpuDevice] in
-    (try? gpuDevice?(SDL_ReleaseGPUShader, $0))
-  })
+
+return SDLObject(pointer, tag: .custom("\(file + fileExt)"), destroy: { p in
+  _ = try? gpuDevice(SDL_ReleaseGPUShader, p)
+})
 }
 
 public enum SDL_GPUShaderFormat: RawRepresentable, Decodable, CaseIterable {

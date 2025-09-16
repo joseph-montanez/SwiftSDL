@@ -228,5 +228,5 @@ public func SDL_CreateWindow(_ title: String, size: Size<Int32>, flags: SDL_Wind
 public func SDL_GetWindows() throws(SDL_Error) -> [any Window] {
   try SDL_BufferPointer(SDL_GetWindows)
     .compactMap(\.self)
-    .map({ SDLObject($0) as! (any Window) })
+    .map({ SDLObject($0, tag: "") as! (any Window) })
 }
