@@ -1,7 +1,7 @@
 extension SDL_Event {
   public var eventType: SDL_EventType {
     #if os(Windows) || canImport(WinSDK)
-    return SDL_EventType(UInt32(bitPattern: type)) // type is Int32 on Windows
+    return SDL_EventType(Int32(type)) // type is Int32 on Windows
     #else
     return SDL_EventType(type) // type is UInt32 on Apple/Clang
     #endif
