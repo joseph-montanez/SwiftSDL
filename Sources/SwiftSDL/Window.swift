@@ -31,13 +31,13 @@ extension Window {
   public var surface: Result<any Surface, SDL_Error> {
     self
       .resultOf(SDL_GetWindowSurface)
-      .map({ SDLObject($0, tag: .custom("surface")) })
+      .map({ SDLObject($0, tag: "surface") })
   }
   
   public var renderer: Result<any Renderer, SDL_Error> {
     self
       .resultOf(SDL_GetRenderer)
-      .map({ SDLObject($0, tag: .custom("renderer")) })
+      .map({ SDLObject($0, tag: "renderer") })
   }
   
   public var displayMode: Result<Any, SDL_Error> {
@@ -58,7 +58,7 @@ extension Window {
   public func createRenderer<P: PropertyValue>(with properties: [(String, value: P)] = []) throws(SDL_Error) -> any Renderer {
     try self
       .resultOf(SDL_CreateRenderer, nil)
-      .map({ SDLObject($0, tag: .custom("window renderer"), destroy: SDL_DestroyRenderer) })
+      .map({ SDLObject($0, tag: "window renderer", destroy: SDL_DestroyRenderer) })
       .get()
   }
   
@@ -214,14 +214,14 @@ public func SDL_CreateWindow(with properties: [WindowProperty]) throws(SDL_Error
     throw .error
   }
   
-  return SDLObject(pointer, tag: .custom("app window"), destroy: SDL_DestroyWindow)
+  return SDLObject(pointer, tag: "app window", destroy: SDL_DestroyWindow)
 }
 
 public func SDL_CreateWindow(_ title: String, size: Size<Int32>, flags: SDL_WindowFlags) throws(SDL_Error) -> some Window {
   guard let pointer = SDL_CreateWindow(title, size.x, size.y, flags.rawValue) else {
     throw .error
   }
-  return SDLObject(pointer, tag: .custom("app window"), destroy: SDL_DestroyWindow)
+  return SDLObject(pointer, tag: "app window", destroy: SDL_DestroyWindow)
 }
 
 @discardableResult
